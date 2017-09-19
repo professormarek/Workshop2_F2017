@@ -16,8 +16,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SecondActivity" />
+
+        <!-- the presence of the elments below tells the OS that there's more than one Activity
+        in our application -->
+        <activity android:name=".SecondActivity" >
+        <!-- any xml tags here describe the second activity, we need a intent filter in order for
+        SecondActivity to recieve or handle our implict intent -->
+            <intent-filter>
+                <!--every intent needs an action and a category -->
+                <action android:name="com.seneca.lab2.marek"/>
+                <!-- for custom intents the category is always DEFAULT -->
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
         <activity android:name=".ThirdActivity"></activity>
     </application>
 
 </manifest>
+
+
+
+
+
+
+
+
+

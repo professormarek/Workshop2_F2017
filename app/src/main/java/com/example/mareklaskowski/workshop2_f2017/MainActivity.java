@@ -1,5 +1,6 @@
 package com.example.mareklaskowski.workshop2_f2017;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,12 @@ public class MainActivity extends AppCompatActivity {
         //for now, display a Toast message for debugging purposes
         Toast.makeText(this, "You clicked a2_button. Way to go!", Toast.LENGTH_LONG).show();
         //don't forget .show() at the end
+
+        //use an implicit intent to launch SecondActivity
+        //step 1 create the intent
+        Intent a2intent = new Intent("com.seneca.lab2.marek"); //TODO: change to your name
+        //use our intent to start the SecondActivity
+        startActivity(a2intent);
     }
 
     @Override
