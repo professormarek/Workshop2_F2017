@@ -1,10 +1,13 @@
 package com.example.mareklaskowski.workshop2_f2017;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,7 +24,12 @@ public class MainActivity extends AppCompatActivity {
         //step 1 create the intent
         Intent a2intent = new Intent("com.seneca.lab2.marek"); //TODO: change to your name
         //use our intent to start the SecondActivity
-        startActivity(a2intent);
+        //startActivity will not listen or handle a result back from SecondActivity
+        //startActivity(a2intent);
+        //if we want to use another Activity as a "dialog" we have to use startActivityForResult instead
+        //startActivityForResult exepcts both an Intent and an int request code so that you
+        //can later match up the request with the eventual reply from the started activity
+        startActivityForResult(a2intent, 1);//for simple apps we can use a literal code
     }
 
     @Override
@@ -41,10 +49,32 @@ public class MainActivity extends AppCompatActivity {
                     handleA2click();
                 }
             }
-
-
         );
+    }
 
+    /* onActivityResult will be called by the Android framework once the Activity we
+        started with startActivityForResult completes.
+        We are passed the same request code that we passed to startActivityForResult
+        and a result code that indicates whether the user completed the Activity or pressed
+        back to cancel.
+         */
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //handler
+        if(requestCode == 1){
+            //check to see whether the user pressed OK or hit the back button
+            if(resultCode == Activity.RESULT_OK){
+                //exract the message from the Intent that was returned (data)
+                String result = data.getStringExtra("message");
+                //set the textView's string to display the message
+                TextView text = (TextView) findViewById(R.id.message);
+                text.setText(result);
+            }
+        } else{
+            Log.e("lab2", "SOMETHING WENT VERY WRONG");
+        }
     }
 }
 
